@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Week 5</title>
+      <link type="text/css" rel="stylesheet" href="main.css">
+      <style>
+          #header {
+              padding: 2rem 0;
+              margin: 0 0 3rem 0;
+              border-bottom: 1px solid black;
+          }
+
+          .example--float {
+              padding-left: 2rem;
+              border-left: 8px solid #333;
+          }
+
+          .example--float .example-image {
+              width: 40px;
+              height: 40px;
+              margin-right: 1rem;
+              float: left;
+          }
+
+          .example--twocolumn .example-aside,
+          .example--twocolumn .example-main {
+              float: left;
+          }
+
+          .example-aside {
+              background-color: lightgoldenrodyellow;
+              width: 33%;
+          }
+
+          .example-aside--withPadding {
+              padding-right: 2rem;
+          }
+
+          .example-main {
+              background-color: lightcoral;
+              width: 67%;
+          }
+
+          .u-contentBoxed {
+              box-sizing: content-box;
+              -moz-box-sizing: content-box;
+              -webkit-box-sizing: content-box;
+          }
+      </style>
+  </head>
+  <body>
+    <header id="header">
+        <h1>This Week in HTML and CSS: Lesson 5</h1>
+    </header>
+    <aside id="aside">
+        <h2>Topics</h2>
+        <ul>
+            <li><h3><a href="#html">HTML</a></h3>
+                <ul>
+                    <li><a href="#tables">Tables</a></li>
+                </ul>
+            </li>
+            <li><h3><a href="#css">CSS</a></h3>
+                <ul>
+                    <li><a href="#import"><code>@import</code></a></li>
+                    <li><a href="#floats">Floats</a></li>
+                    <li><a href="#twocolumn">Two-column layout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <main id="main">
+        <h2 id="overview">Overview</h2>
+        <p>
+            This week, we continued our work on recreating the <a href="http://www.rottentomatoes.com/m/ouija_2014">
+            Ouija</a> page on Rotten Tomatoes. While we focused primarily on HTML last week, this week we introduced
+            some more CSS to start making the page look more true to its original. We also discussed how to create an
+            HTML table.
+        </p>
+        <h2 id="html">HTML</h2>
+        <section>
+            <h3 id="tables">Tables</h3>
+            <p>
+                Tables in HTML have a long history of abuse as a layout element. This is not the intent of the
+                <code>&lt;table&gt;</code> tag; rather, it is intended to present tabular data. Looking again at
+                <a href="http://www.rottentomatoes.com/m/ouija_2014">Rotten Tomatoes</a>, we can see that the content
+                in the aside is tabular data&mdash;there are three tables of movies, each listed with a rating, title, and
+                release date. Let's look at the basic code for creating a table.
+            </p>
+            <pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+            <p>
+                The primary tag for a table is, as you might guess, <code>&lt;table&gt;</code>. The contents of a table
+                are a bit less obvious. A table in HTML is composed of rows and cells. Rows are represented with
+                <code>&lt;tr&gt;</code>, while cells are represented with <code>&lt;td&gt;</code>, except for header cells,
+                which are represented with <code>&lt;th&gt;</code>. Here is how the aforementioned movies table would be
+                represented in code.
+            </p>
+            <pre><code>&lt;table&gt;
+    &lt;tr class=&quot;movieListing&quot;&gt;
+        &lt;td class=&quot;movieListing-rating&quot;&gt;48%&lt;/td&gt;
+        &lt;td class=&quot;movieListing-title&quot;&gt;Saw&lt;/td&gt;
+        &lt;td class=&quot;movieListing-date&quot;&gt;Oct 31&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&quot;movieListing&quot;&gt;
+        &lt;td class=&quot;movieListing-rating&quot;&gt;85%&lt;/td&gt;
+        &lt;td class=&quot;movieListing-title&quot;&gt;John Wick&lt;/td&gt;
+        &lt;td class=&quot;movieListing-date&quot;&gt;Oct 24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&quot;movieListing&quot;&gt;
+        &lt;td class=&quot;movieListing-rating&quot;&gt;41%&lt;/td&gt;
+        &lt;td class=&quot;movieListing-title&quot;&gt;23 Blast&lt;/td&gt;
+        &lt;td class=&quot;movieListing-date&quot;&gt;Oct 24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&quot;movieListing&quot;&gt;
+        &lt;td class=&quot;movieListing-rating&quot;&gt;67%&lt;/td&gt;
+        &lt;td class=&quot;movieListing-title&quot;&gt;Laggies&lt;/td&gt;
+        &lt;td class=&quot;movieListing-date&quot;&gt;Oct 24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&quot;movieListing&quot;&gt;
+        &lt;td class=&quot;movieListing-rating&quot;&gt;53%&lt;/td&gt;
+        &lt;td class=&quot;movieListing-title&quot;&gt;White Bird in a Blizzard&lt;/td&gt;
+        &lt;td class=&quot;movieListing-date&quot;&gt;Oct 24&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+            <p>And here's what it looks like as HTML:</p>
+            <table>
+                <tr class="movieListing">
+                    <td class="movieListing-rating">48%</td>
+                    <td class="movieListing-title">Saw</td>
+                    <td class="movieListing-date">Oct 31</td>
+                </tr>
+                <tr class="movieListing">
+                    <td class="movieListing-rating">85%</td>
+                    <td class="movieListing-title">John Wick</td>
+                    <td class="movieListing-date">Oct 24</td>
+                </tr>
+                <tr class="movieListing">
+                    <td class="movieListing-rating">41%</td>
+                    <td class="movieListing-title">23 Blast</td>
+                    <td class="movieListing-date">Oct 24</td>
+                </tr>
+                <tr class="movieListing">
+                    <td class="movieListing-rating">67%</td>
+                    <td class="movieListing-title">Laggies</td>
+                    <td class="movieListing-date">Oct 24</td>
+                </tr>
+                <tr class="movieListing">
+                    <td class="movieListing-rating">53%</td>
+                    <td class="movieListing-title">White Bird in a Blizzard</td>
+                    <td class="movieListing-date">Oct 24</td>
+                </tr>
+            </table>
+            <p>
+                Tables can be used in more complex ways as well. <code>rowspan</code> and <code>colspan</code> allow
+                you to define a table cell that takes up more than it's space, pushing the other cells out of the way.
+                Here's an example:
+            </p>
+            <table>
+                <tr>
+                    <td style="background-color: aliceblue;" rowspan="2">This cell has <code>rowspan="2"</code></td>
+                    <td style="background-color: darkblue; color: white;" colspan="2">This cell has <code>colspan="2"</code></td>
+                </tr>
+                <tr>
+                    <td style="background-color: lavender;">These cells have no</td>
+                    <td style="background-color: lavender;"><code>rowspan</code> or <code>colspan</code></td>
+                </tr>
+                <tr>
+                    <td style="background-color: lightskyblue;" colspan="3" rowspan="2">This cell has <code>rowspan="3"</code> and <code>colspan="2"</code></td>
+                </tr>
+            </table>
+            <p>
+                This makes it possible to create varying cell sizes with minimal effort, but it can be a pain to modify,
+                which is the main reason to avoid using tables as a layout tool.
+            </p>
+        </section>
+        <h2 id="css">CSS</h2>
+        <section>
+            <h3 id="import">@import</h3>
+            <p>
+                CSS allows for the inclusion of extra stylesheets using the <code>@import</code> directive. The syntax
+                is as follows:
+            </p>
+            <pre><code>@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700)</code></pre>
+            <p>
+                This is just one option of including multiple CSS files in a page. In general, it makes more sense to
+                include each stylesheet separately in HTML using <code>&lt;link&gt;</code>. However, neither of these is
+                best practice&mdash;the correct thing to do where possible is to <strong>only include one CSS file</strong>.
+                This is due to the performance cost incurred by transferring multiple files over HTTP.
+            </p>
+        </section>
+        <section>
+            <h3 id="floats">Floats</h3>
+            <p>
+                As we covered before, floating an element takes it out of the flow of the page, causing subsequent elements
+                to wrap around it. This looks something like this:
+            </p>
+            <section class="example example--float">
+                <img class="example-image" src="http://placekitten.com/g/200/200">
+                <p class="example-text">
+                    This text is going to wrap around the image, which will be floated to the left side using
+                    <code>float: left</code>. Any subsequent content will also wrap around the floated element if it
+                    can. This can be circumvented in various methods.
+                </p>
+            </section>
+            <p>
+                If you do not want an element to be wrapped around floated elements preceeding it, you can use a CSS
+                property known as <code>clear</code>. As with float, <code>clear</code> can be set to <code>left</code>
+                or <code>right</code>, or it can be set to <code>both</code> in order to clear all floats. But this
+                introduces dependencies on the order of elements, and it can quickly become unmanageable. To circumvent
+                this, various &ldquo;clearfixes&rdquo; have been developed.
+            </p>
+            <p>
+                A clearfix is a method of clearing floats from a group of elements to prevent them from impacting any
+                subsequent elements. The most concise clearfix today looks this:
+            </p>
+            <pre><code>section:before, section:after {
+    content: "";
+    display: table;
+}
+
+section:after {
+    clear:both;
+}</code></pre>
+            <p>
+                This example will prevent any floats within a <code>&lt;section&gt;</code> from impacting other parts of
+                the page.
+            </p>
+        </section>
+        <section>
+            <h3 id="twocolumn">Two-Column Layout</h3>
+            <p>
+                Right now, all of our text flows into a single column. How would we arrange our content into multiple
+                columns? In the olden days of HTML, the answer would have been a table with <code>colspan</code>. Today,
+                there is a better way.
+            </p>
+            <p>
+                Before we talk about the ideal system for defining columns, let's take a look at an easy way to set up a
+                multi-column layout in CSS. The first thing we need to do is to choose what top-level elements to define
+                as our columns. In this case, we will keep it simple and use the <code>&lt;main&gt;</code> and
+                <code>&lt;aside&gt;</code> elements. We'll add an id to each of them in order to target only the
+                top-level instances of these tags, since HTML5 allows elements such as <code>&lt;article&gt;</code> to
+                contain them as well.
+            </p>
+            <p>
+                Turning this into a multi-column layout is simple: first we will float both elements to the left, and
+                then we will specify their widths. This will allow them to flow next to each other, while still taking
+                up the full space. Let's see that in code:
+            </p>
+            <pre><code>#main, #aside {
+    float: left;
+}
+
+#aside {
+    width: 33%;
+}
+
+#main {
+    width: 67%;
+}</code></pre>
+            <p>And in practice:</p>
+            <section class="example example--twocolumn">
+                <aside class="example-aside">
+                    <p>Example content for the aside.</p>
+                </aside>
+                <main class="example-main">
+                    <p>Example content for the main section.</p>
+                </main>
+            </section>
+            <p>
+                Using percentages rather than pixels here allows the page to remain flexible as we scale our browsers to
+                different widths. In a future lesson, we will discuss how we can change our layout for various screen
+                sizes, but for now, we will assume these column sizes for all browsers. To prevent the layout from
+                getting too wide, we can add a <code>max-width: 1100px</code> to the body that will let the page scale -
+                up to a point.
+            </p>
+            <p>
+                What would happen if we were to add a padding to one of our columns? In a previous lesson, we discussed
+                the benefits of using <code>box-sizing: border-box</code>, and this is one of those cases. Without that
+                setting, adding a padding to the element will cause our total width to surpass 100%, meaning that our
+                columns will no longer fit next to each other. For example, if we were to define <code>#aside</code> as
+            </p>
+            <pre><code>#aside {
+    width: 33%;
+    padding-right: 2rem;
+}</code></pre>
+            <p>
+                the result would be a column that took up a width of 33% + 2rem, rather than 33%.
+                This would look something like this:
+            </p>
+            <section class="example example--twocolumn">
+                <aside class="example-aside example-aside--withPadding u-contentBoxed">
+                    <p>Example content for the aside.</p>
+                </aside>
+                <main class="example-main u-contentBoxed">
+                    <p>Example content for the main section.</p>
+                </main>
+            </section>
+            <p>
+                If we set <code>box-sizing: border-box</code>, however, we will see that the padding is cut into the 33%,
+                rather than added to it:
+            </p>
+            <section class="example example--twocolumn">
+                <aside class="example-aside example-aside--withPadding">
+                    <p>Example content for the aside.</p>
+                </aside>
+                <main class="example-main">
+                    <p>Example content for the main section.</p>
+                </main>
+            </section>
+            <p>
+                We can see how easy it is to define a quick two-column layout, but when designing a complicated website,
+                this is often insufficient to design everything in an easy-to-maintain way. A common solution to this
+                problem is to use a multi-column grid&mdash;most frequently a 12-, 16-, or 24-column grid. This is a great
+                system, but in most cases, it comes at a cost&mdash;style information leaking into the HTML. The reason
+                for this is that common implementations of a grid system involve using class names such as
+                <code>.col-xs-4</code>, which effectively means that the number of columns has been defined in HTML,
+                rather than CSS. This is a step up from inline styles, but it still creates a dependency that makes it
+                difficult to change layouts down the road.
+            </p>
+            <p>
+                There is a better way to do this, and that way is to use a CSS preprocessor such as LESS or SASS. In a
+                few weeks, we will begin to introduce some LESS into our stylesheets, allowing us to create much more
+                flexible and reusable code. For now, we will stick to manually defining our percentages for our layout.
+            </p>
+        </section>
+    </main>
+  </body>
+</html>
