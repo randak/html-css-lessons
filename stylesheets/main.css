@@ -161,6 +161,7 @@ p, dl, ul, ol {
 
 #main, #aside {
     float: left;
+    overflow: hidden;
 }
 
 #aside {
@@ -170,4 +171,65 @@ p, dl, ul, ol {
 
 #main {
     width: 67%;
+}
+
+.movieListing {
+    font-size: 1.4rem;
+}
+
+.movieListings-heading, .movieListing-date {
+    text-transform: uppercase;
+}
+
+.movieListing-rating {
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center left;
+    padding-left: 2rem;
+}
+
+.movieListing-rating--certified,
+.movieListing-rating[data-rating="certified"] {
+    background-image: url(../images/CF_16x16.png);
+}
+
+.movieListing-rating--fresh {
+    background-image: url(../images/fresh-16.png);
+}
+
+.movieListing-rating--rotten {
+    background-image: url(../images/splat-16.png);
+}
+
+.movieListings-link {
+    display: block;
+    text-align: right;
+    color: inherit;
+}
+
+.movieListings-link:after {
+    content: " >";
+}
+
+.movie-poster, .movie-reviewInfo {
+    float: left;
+}
+
+.movie-poster {
+    width: 25%;
+}
+
+.movie-reviewInfo {
+    width: 75%;
+    padding-left: 2%;
+}
+
+button, .btn {
+    background-color: #0C89CA;
+    color: white;
+    border-color: #0B79B2;
+    font-size: 1.4rem;
+    box-shadow: inset 0 1px #68B6DE;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
 }

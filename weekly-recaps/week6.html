@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Week 6</title>
+      <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+      <style>
+          #header {
+              padding: 2rem 0;
+              margin: 0 0 3rem 0;
+              border-bottom: 1px solid black;
+          }
+
+          .example--float {
+              padding-left: 2rem;
+              border-left: 8px solid #333;
+          }
+
+          .example--float .example-image {
+              width: 40px;
+              height: 40px;
+              margin-right: 1rem;
+              float: left;
+          }
+
+          .example--twocolumn .example-aside,
+          .example--twocolumn .example-main {
+              float: left;
+          }
+
+          .example-aside {
+              background-color: lightgoldenrodyellow;
+              width: 33%;
+          }
+
+          .example-aside--withPadding {
+              padding-right: 2rem;
+          }
+
+          .example-main {
+              background-color: lightcoral;
+              width: 67%;
+          }
+
+          .u-contentBoxed {
+              box-sizing: content-box;
+              -moz-box-sizing: content-box;
+              -webkit-box-sizing: content-box;
+          }
+      </style>
+  </head>
+  <body>
+    <header id="header">
+        <h1>This Week in HTML and CSS: Lesson 6</h1>
+    </header>
+    <aside id="aside">
+        <h2>Topics</h2>
+        <ul>
+            <li><h3><a href="#backgroundimages">CSS Background Images</a></h3></li>
+            <li>
+                <h3><a href="#complexlayout">Complex Module Layouts</a></h3>
+                <ul>
+                  <li><a href="#outlining">Outlining</a></li>
+                  <li><a href="#multiplecolumns">Defining multiple columns</a></li>
+                  <li><a href="#buttonstyles">Button styles</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p><a href="week5.html">&lt; Last Week</a></p>
+    </aside>
+    <main id="main">
+        <h2 id="backgroundimages">CSS Background Images</h2>
+        <p>Last week, we built a set of tables that showcased information about the rankings of other movies. We added ratings, but we need a visual cue so people can scan for well-rated movies. To do this, we will add certified fresh, fresh, and rotten symbols as background images.</p>
+        <p>Setting backgrounds in CSS is similar to setting fonts—there is a shorthand syntax for background, and an expanded list of settings such as background-image and background-repeat that allow us to change specific things about the background. For our purposes, we want to define a 16 by 16 pixel image as a background that does not repeat, is vertically centered and aligned to the left, and we want that image to be different for three different types of ratings. First, let’s express the classes that we want to target. The unmodified class for these elements is .movieListing-rating. Let’s set the shared properties on this element:</p>
+<pre><code>.movieListing-rating {
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center left;
+}</code></pre>
+        <p>This tells the background how big it should be, where it should be, and whether it should repeat. Let’s add some modified classes for targeting with our specific background images. We will define the classes of .movieListing-rating--certified, .movieListing-rating--fresh, and .movieListing-rating—rotten. Let’s see how we can set background images for these:</p>
+<pre><code>.movieListing-rating--certified {
+    background-image: url(../images/CF_16x16.png);
+}
+
+.movieListing-rating--fresh {
+    background-image: url(../images/fresh-16.png);
+}
+
+.movieListing-rating--rotten {
+    background-image: url(../images/splat-16.png);
+}</code></pre>
+        <p>There’s one more thing we need to do, which is to leave space for the images within their table cells. We add one final rule to the base class:</p>
+
+<pre><code>.movieListing-rating {
+    padding-left: 2rem;
+}</code></pre>
+        <p>Now we have defined our background images. What if this information on certified, fresh, and rotten is being used in javascript as well? As we discussed before with advanced CSS selectors, we can match rules against elements with specific attributes. For example, we could define a movieListing-rating with a data-rating attribute:</p>
+
+<pre><code>&lt;td class="movieListing-rating" data-rating="certified"&gt;</code></pre>
+
+        <p>And then in CSS:</p>
+
+<pre><code>.movieListing-rating[data-rating="certified"] {
+    background-image: url(../images/CF_16x16.png);
+}</code></pre>
+
+        <p>This is just one option for targeting this sort of information. Once we begin to use LESS we will begin introducing some more ways we can make use of these sorts of attributes to apply styles.</p>
+
+        <h2 id="complexlayout">Complex Module Layouts</h2>
+        <h3 id="outlining">Outlining</h3>
+        <p>The top section is a complex layout featuring multiple columns and rows. How can we faithfully reproduce this section of the page? First, we will go through and outline the basic structure of the content. We may change these tags later on, but we are going to start by outlining most things as divs.</p>
+<pre><code>
+&lt;section class="movie-overview"&gt;
+    &lt;div class="movie-poster"&gt;
+        &lt;img src="images/11179312_det.jpg"&gt;
+        &lt;button class="btn btn--tickets"&gt;Tickets and Showtimes&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="movie-reviewInfo"&gt;
+        &lt;div&gt;
+            &lt;div class="tomatometer"&gt;
+                &lt;h3&gt;Tomatometer&lt;/h3&gt;
+                &lt;p&gt;8%&lt;/p&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;Average Rating&lt;/dt&gt;
+                    &lt;dd&gt;3.3/10&lt;/dd&gt;
+                    &lt;dt&gt;Reviews Counted&lt;/dt&gt;
+                    &lt;dd&gt;65&lt;/dd&gt;
+                    &lt;dt&gt;Fresh&lt;/dt&gt;
+                    &lt;dd&gt;5&lt;/dd&gt;
+                    &lt;dt&gt;Rotten&lt;/dt&gt;
+                    &lt;dd&gt;60&lt;/dd&gt;
+                    &lt;dt&gt;Critics Consensus&lt;/dt&gt;
+                    &lt;dd&gt;Slowly, steadily, although no one seems to be moving it in that direction, the Ouija planchette points to NO.&lt;/dd&gt;
+                &lt;/dl&gt;
+            &lt;/div&gt;
+            &lt;div class="audienceScore"&gt;
+                &lt;h3&gt;Audience Score&lt;/h3&gt;
+                &lt;p&gt;33% &lt;span&gt;liked it&lt;/span&gt;&lt;/p&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;Average Rating&lt;/dt&gt;
+                    &lt;dd&gt;2.7/5&lt;/dd&gt;
+                    &lt;dt&gt;User Ratings&lt;/dt&gt;
+                    &lt;dd&gt;17,022&lt;/dd&gt;
+                &lt;/dl&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;div class="trailer"&gt;
+                &lt;h3&gt;Trailer&lt;/h3&gt;
+                &lt;div&gt;
+                    &lt;figure&gt;
+                        &lt;img src="images/918569_031.jpg"&gt;
+                        &lt;figcaption&gt;HD Video&lt;/figcaption&gt;
+                        &lt;a href="#"&gt;&lt;/a&gt;
+                    &lt;/figure&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="photos"&gt;
+                &lt;h3&gt;Photos&lt;/h3&gt;
+                &lt;img src="images/thumbnail1.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail2.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail3.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail4.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail5.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail6.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail7.jpg" alt=""/&gt;
+                &lt;img src="images/thumbnail8.jpg" alt=""/&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+        <p>This might seem a little overwhelming, so let’s break it down a bit. First, we have identified the main sections of the document - the poster, the tomatometer, the audience score, the trailer, and the photos. We are ignoring for now the section for adding a rating, because we are going to talk about forms at a later date.</p>
+
+        <h3 id="multiplecolumns">Defining multiple columns</h3>
+        <p>Let’s first start by breaking this into two columns. We have the left column that includes the movie poster and the tickets button, and we have the right column that hosts everything else. We can model these sections as movie-poster and movie-reviewInfo, which will serve as the top level identifiers for these sections. From there, we can add sizing to the columns. We will define the left column as 25% and the right column as 75%, with a couple percentage reserved for padding.</p>
+
+<pre><code>.movie-poster, .movie-reviewInfo {
+    float: left;
+}
+
+.movie-poster {
+    width: 25%;
+}
+
+.movie-reviewInfo {
+    width: 75%;
+    padding-left: 2%;
+}</code></pre>
+
+        <p>Remember that in order for these rules to work, you need to have content set to box-sizing: border-box;. This will cut the padding out of the 75%, rather than adding to it.</p>
+        <h3 id="buttonstyles">Button styles</h3>
+
+        <p>Now that we have two columns, we can style the first column. Our poster already looks the way it should in the space, thanks to our rule that defines max-width: 100% on all <img> tags. Let’s move down to the button. We have yet to style the buttons on our website yet, so we can go ahead and work on defining a base class of .btn before creating a special class for this individual button. The default style for a button varies wildly across devices and browsers, so it is important to be explicit in our overrides when using the <code>&lt;button&gt;</code> tag. One workaround for this is to use <code>&lt;a class="btn"&gt;</code>, but we won’t need to do that here.</p>
+        <p>We will crib the button colors from the live website so we don’t have to guess at the hex codes. Let’s start by adding just the colors.</p>
+
+<pre><code>.btn {
+    background-color: #0C89CA;
+    color: white;
+    border-color: #0b79b2;
+}</code></pre>
+        <p>The outcome of this will look something like:</p>
+
+        <div class="example">
+            <a style="background-color: #0C89CA; color: white; border-color: #0b79b2;">Example button</a>
+        </div>
+        <p>This isn’t a great result yet, and it remains inconsistent across browsers. Let’s add some padding and increase the font size:</p>
+
+<pre><code>.btn {
+    background-color: #0C89CA;
+    color: white;
+    border-color: #0B79B2;
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+}</code></pre>
+        <p>This is closer, but it is missing two key things compared to the original - an inset shadow and rounded corners. Previously, these would require complicated workarounds, like an image for each corner, but they are now easy thanks to CSS3. To define a shadow, we can use the box-shadow property. The default is a drop shadow, but we can also use it for inset shadows. The only difference is to start with the inset keyword. Let’s see what the box-shadow rule for this element looks like:</p>
+
+<pre><code>box-shadow: inset 0 1px #68B6DE;</code></pre>
+
+        <p>This may look confusing at first, but the two numbers simply define the x- and y-offsets for the shadow (relative to the upper left corner of the button). The last item is just the shade of the shadow. There are two additional properties that can be added as well, which are the blur and the spread of the shadow. You can play around with these properties in a JSFiddle. You can choose to specify a fallback style for pre-CSS3 browsers, or you can simply let it degrade gracefully and not apply the shadow on those browsers at all—they will simply ignore the rule.</p>
+        <p>The other property that we need to add is called border-radius, and the syntax is similar to other properties such as padding and margin. In our case, because our corners will all have the same radius, our rule is simple:</p>
+
+<pre><code>border-radius: 5px;</code></pre>
+
+        <p>Putting this all together, our new button definition looks something like this:</p>
+
+<pre><code>button, .btn {
+    background-color: #0C89CA;
+    color: white;
+    border-color: #0B79B2;
+    font-size: 1.4rem;
+    box-shadow: inset 0 1px #68B6DE;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+}</code></pre>
+
+        <div class="example">
+            <a style="background-color: #0C89CA; color: white; border-color: #0B79B2; font-size: 1.4rem; box-shadow: inset 0 1px #68B6DE; border-radius: 5px; padding: 0.5rem 1rem;">Example button</a>
+        </div>
+    </main>
+  </body>
+</html>
